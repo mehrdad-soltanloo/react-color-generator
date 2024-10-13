@@ -1,9 +1,7 @@
-import SingleColor from "./SingleColor";
 import { nanoid } from "nanoid";
+import SingleColor from "./SingleColor";
 
-const ColorList = ({ colors }) => {
-  console.log(colors);
-
+export const ColorList = ({ colors }) => {
   return (
     <section className="colors">
       {colors.map((color, index) => {
@@ -12,4 +10,3 @@ const ColorList = ({ colors }) => {
     </section>
   );
 };
-export default ColorList;

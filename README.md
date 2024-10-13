@@ -1,136 +1,107 @@
-## Figma URL
+# Color Generator
 
-[Color generator](https://www.figma.com/file/P2SJ5QGOZvi49EOpoVTvsT/Color-generator?node-id=0%3A1&t=ZY2gnIJ9zGTSXPW8-1)
+A simple color generator built with React that allows users to input a color and generate different shades and tints. The project also allows users to copy the generated color hex code to the clipboard by clicking on a color cell, with a notification using React Toastify.
 
-## Steps
+## Features
 
-#### Setup
+- Generate shades and tints for a chosen color.
+- Input a color via a text field or color picker.
+- Copy the hex code of the generated color by clicking on the color cell.
+- Toast notifications to inform users when a color is copied to the clipboard.
 
-Create three components: Form, ColorList, and SingleColor.
+## Installation
 
-In the App component, render the Form and ColorList components.
+1. Clone the repository
 
-#### Form Component
-
-In the Form component, set up a color state value and a form with an two input fields (color and text). Set up a handleChange function to update the color state value and a handleSubmit function to add the color to the list.
-
-[HTML Color Input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color)
-
-#### Values.js
-
-Install the values.js library and use it to generate a list of colors in the App component.
-
-[Values.js Library](https://github.com/noeldelgado/values.js/blob/master/README.md)
-
-```sh
-npm i values.js
-
+```bash
+Copy code
+git clone https://github.com/yourusername/color-generator.git
+cd color-generator
 ```
 
-```js
-import Values from 'values.js';
-new Values('#f15025').all(10);
+2. Install the dependencies
+
+```bash
+npm install
 ```
 
-#### Render Colors
+3. Run the development server
 
-Pass the colors list to the ColorList component.
-
-In the ColorList component, iterate over the list of colors and render each one in a SingleColor component. Fix the key problem by providing a unique id for each color.
-
-In the SingleColor component, display the hex value and weight (percent) of each color, and use inline CSS to set the background color of the component.
-
-#### React-Toastify
-
-Import and set up the react-toastify library.
-
-[React Toastify](https://fkhadra.github.io/react-toastify/introduction)
-
-```sh
-npm i react-toastify
+```bash
+npm start
 ```
 
-main.jsx
+This will start the React development server on localhost:3000. You can now visit http://localhost:3000 in your browser.
 
-```js
-import 'react-toastify/dist/ReactToastify.css';
+## Usage
+
+1. Once the app is running, you can enter a color code (e.g., #e66465) in the input field or use the color picker.
+2. After submitting the color, the app will generate a range of shades and tints.
+3. Click on any color cell to copy the hex code to the clipboard.
+4. A toast notification will appear confirming that the hex code has been copied..
+
+## Algorithm
+
+The core logic for generating shades and tints of a color is powered by the values.js library. Here’s how the algorithm works:
+
+1. User Input: The user selects or enters a color value, which is passed as a string (e.g., #e66465).
+2. Color Parsing: The input color is passed to the Values constructor from the values.js library, which parses the color and generates shades and tints.
+3. Shade/Tint Calculation:
+
+- The all(10) method generates an array of colors, with 10% increments in darkness or lightness.
+- The result is an array of colors, each represented by an object with its hexadecimal value and weight (percentage).
+
+4. Display and Interaction:
+
+- Each color in the array is displayed on the page, and when a color cell is clicked, the color code is copied to the clipboard using the navigator.clipboard API.
+- A notification is displayed using React Toastify when the color is successfully copied.
+
+## Technologies Used
+
+- React: For building the user interface.
+- React Toastify: For displaying toast notifications.
+- nanoid: For generating unique keys for list items.
+- values.js: For generating color shades and tints.
+
+## Key Dependencies
+
+To install React Toastify and nanoid, run:
+
+```bash
+npm install react-toastify nanoid
 ```
 
-App.jsx
+You can then import them into your project like this:
 
-```js
-import { ToastContainer, toast } from 'react-toastify';
+```javascript
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-toast.success('awesome');
-toast.error('error message');
-
-return (
-  <main>
-    ...............
-    <ToastContainer position='top-center' />
-  </main>
-);
+import { nanoid } from "nanoid";
 ```
 
-#### Create Color
+## CSS Styling
 
-In the App component, create logic to generate a new list of colors when the user submits a new color value. Use react-toastify to display an error message if the values.js library cannot generate a color, and also display a toast message if the user tries to submit an empty value.
-
-#### Clipboard
-
-In the SingleColor component, set up a click handler that saves the hex value of the color to the browser clipboard.
-
-To save some value in the navigator clipboard, you can use the Clipboard API, which is a part of the Web API provided by modern browsers. The Clipboard API allows web developers to interact with the user's clipboard, including reading and writing data to it.
-
-Here is an example of how to save a string value to the clipboard using the Clipboard API:
-
-```js
-async function copyToClipboard(text) {
-  try {
-    await navigator.clipboard.writeText(text);
-    console.log('Text copied to clipboard');
-  } catch (error) {
-    console.error('Failed to copy text: ', error);
-  }
-}
-
-const textToCopy = 'Hello, world!';
-copyToClipboard(textToCopy);
-```
-
-The flow of the application should look something like this:
-
-- Create the Form, ColorList, and SingleColor components.
-
-- In the App component, render the Form and ColorList components.
-
-- In the Form component, set up a color state value and a form with an input field. Set up a handleChange function to update the color state value and a handleSubmit function to add the color to the list.
-
-- Install the values.js library and use it to generate a list of colors in the App component. Pass the colors list to the ColorList component.
-
-- In the ColorList component, iterate over the list of colors and render each one in a SingleColor component. Fix the key problem by providing a unique id for each color.
-
-- In the SingleColor component, display the hex value and weight (percent) of each color, and use inline CSS to set the background color of the component.
-
-- Import and set up the react-toastify library. In the App component, create logic to generate a new list of colors when the user submits a new color value. Use react-toastify to display an error message if the values.js library cannot generate a color, and also display a toast message if the user tries to submit an empty value.
-
-- In the SingleColor component, set up a click handler that saves the hex value of the color to the browser clipboard.
-
-#### CSS
+In addition to JavaScript, basic styling can be done through CSS. You can include toastify styles in your project by importing them at the top of your App.css or index.css:
 
 ```css
-.colors {
-  min-height: calc(100vh - 160px);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(223.33px, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(96px, 1fr));
-}
+Copy code
+@import 'react-toastify/dist/ReactToastify.css';
 ```
 
-min-height: calc(100vh - 160px); - This line sets the minimum height of the element. It uses the calc() function to subtract 160 pixels from the viewport height (100vh). The viewport height unit (vh) is relative to the height of the browser window. This means the element will take up at least the full viewport height minus 160 pixels.
+## Example Code Snippet for Copying and Toastifying:
 
-display: grid; - This line sets the element's display property to 'grid', enabling the use of the CSS Grid Layout module to arrange its child elements in a grid format.
+```javascript
+const copyToClipboard = (color) => {
+  navigator.clipboard.writeText(`#${color.hex}`).then(() => {
+    toast.success(`Copied: #${color.hex}`, {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000, // Auto close in 3 seconds
+    });
+  });
+};
+```
 
-grid-template-columns: repeat(auto-fit, minmax(223.33px, 1fr)); - This line defines the number of columns and their width in the grid. The repeat() function is used with the auto-fit keyword, which automatically calculates the number of columns based on the container's width and the minimum and maximum column widths specified in minmax(223.33px, 1fr). The minimum width is set to 223.33 pixels, while the maximum width is set to 1 fraction (1fr) of the available space.
+## Contribution
 
-grid-template-rows: repeat(auto-fit, minmax(96px, 1fr)); - This line defines the number of rows and their height in the grid, similar to the previous property. The repeat() function is used with the auto-fit keyword, and the minmax() function defines the minimum row height as 96 pixels and the maximum height as 1 fraction (1fr) of the available space.
+> Contributions, issues, and feature requests are welcome! Feel free to check the issues page if you want to contribute. Thank you!

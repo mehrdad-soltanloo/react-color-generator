@@ -1,13 +1,13 @@
 import { useState } from "react";
-import ColorList from "./ColorList";
-import Form from "./Form";
+
+import { ColorList } from "./ColorList";
 import Values from "values.js";
+import Form from "./Form";
 import { ToastContainer, toast } from "react-toastify";
 
 const App = () => {
-  const [colors, setColors] = useState(new Values("#12812e").all(10));
+  const [colors, setColors] = useState(new Values("#e66465").all(10));
 
-  // Add color list
   const addColor = (color) => {
     try {
       const newColors = new Values(color).all(10);
